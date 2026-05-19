@@ -4,7 +4,7 @@ import { Users, MapPin, Star, ArrowRight, Fuel } from "lucide-react";
 
 export default function CarCard({ car }) {
   return (
-    <div className="glass-hover rounded-2xl overflow-hidden  ">
+    <div className="glass-hover rounded-2xl overflow-hidden shadow-lg ">
       <div className="relative h-48">
         <Image
           src={car.imageUrl}
@@ -29,14 +29,14 @@ export default function CarCard({ car }) {
       </div>
 
       <div className="p-5 flex flex-col flex-1">
-        <h3 className="font-display text-xl text-white tracking-wide mb-3">
+        <h3 className="font-display text-xl text-black tracking-wide mb-3">
           {car.carName}
         </h3>
         <div className="flex flex-wrap gap-3 mb-4">
-          <div className="flex items-center gap-1.5 text-slate-400 text-sm">
+          {/* <div className="flex items-center gap-1.5 text-slate-400 text-sm">
             <Users className="w-3.5 h-3.5 text-orange-400" />
             {car.seatCapacity} seats
-          </div>
+          </div> */}
           <div className="flex items-center gap-1.5 text-slate-400 text-sm">
             <MapPin className="w-3.5 h-3.5 text-orange-400" />
             {car.pickupLocation}
@@ -47,14 +47,14 @@ export default function CarCard({ car }) {
           </div>
         </div>
         <div className="flex items-center justify-between pt-4 border-t border-white/5">
-          <div>
+          {/* <div>
             <span className="text-orange-400 font-bold text-xl">
               ${car.dailyRentPrice}
             </span>
             <span className="text-slate-500 text-sm">/day</span>
-          </div>
+          </div> */}
           <Link
-            href={`/cars/${car._id}`}
+            href={`/explore-cars/${car._id}`}
             className="flex items-center gap-1.5 text-sm font-semibold bg-orange-500/10 hover:bg-orange-500 text-orange-400 hover:text-white px-4 py-2 rounded-full transition-all group"
           >
             View Details{" "}
