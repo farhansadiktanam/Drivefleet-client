@@ -43,7 +43,7 @@ export default function Banner() {
           {/* Buttons */}
           <div className="flex flex-col sm:flex-row gap-4">
             <Link
-              href="/cars"
+              href="/explore-cars"
               className="inline-flex items-center justify-center gap-2 bg-orange-500
                 hover:bg-orange-600 text-white font-semibold px-8 py-3.5 rounded-full
                 transition-all hover:-translate-y-0.5 hover:shadow-lg

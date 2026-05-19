@@ -1,5 +1,14 @@
+import { EditCar } from "@/components/EditCar";
 import { Button } from "@heroui/react";
-import { ArrowBigLeft, ArrowRight, MapPin, Star, Users } from "lucide-react";
+import {
+  ArrowBigLeft,
+  ArrowRight,
+  Delete,
+  Edit,
+  MapPin,
+  Star,
+  Users,
+} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -58,20 +67,20 @@ const CarsDetailsPage = async ({ params }) => {
               {car.carName}
             </h3>
             <div className="flex flex-wrap gap-3 mb-4">
-              <div className="flex items-center gap-1.5 text-slate-400 text-sm">
+              <div className="flex items-center gap-1.5 text-slate-500 text-sm">
                 <Users className="w-3.5 h-3.5 text-orange-400" />
                 {car.seatCapacity} seats
               </div>
-              <div className="flex items-center gap-1.5 text-slate-400 text-sm">
+              <div className="flex items-center gap-1.5 text-slate-500 text-sm">
                 <MapPin className="w-3.5 h-3.5 text-orange-400" />
                 {car.pickupLocation}
               </div>
-              <div className="flex items-center gap-1.5 text-slate-400 text-sm">
+              <div className="flex items-center gap-1.5 text-slate-500 text-sm">
                 <Star className="w-3.5 h-3.5 text-yellow-400 fill-yellow-400" />
                 {car.bookingCount || 0} bookings
               </div>
             </div>
-            <p className="text-slate-400 text-sm line-clamp-2 mb-4 flex-1">
+            <p className="text-slate-500 text-sm line-clamp-2 mb-4 flex-1">
               {car.description}
             </p>
             <div className="flex items-center justify-between pt-4 border-t border-white/5">
@@ -88,6 +97,12 @@ const CarsDetailsPage = async ({ params }) => {
                 View Details{" "}
                 <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
               </Link>
+            </div>
+            <div className=" my-3 flex justify-between">
+              <EditCar car={car} key={car._id} />
+              <Button variant="danger" className=" w-30">
+                <Delete /> Delete
+              </Button>
             </div>
           </div>
         </div>
