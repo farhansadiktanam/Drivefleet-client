@@ -1,3 +1,9 @@
+import HowItWorks from "@/components/HowItWorks";
+
 export default function Home() {
-  return <div>Homeage</div>;
+  return (
+    <div>
+      <HowItWorks />
+    </div>
+  );
 }
