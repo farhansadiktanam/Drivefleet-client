@@ -4,6 +4,9 @@ import { Button, Input } from "@heroui/react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
+import { signIn } from "@/lib/auth-client";
+import toast from "react-hot-toast";
+import { redirect } from "next/navigation";
 
 export default function Login() {
   // const router = useRouter();
@@ -27,6 +30,28 @@ export default function Login() {
   //   router.push("/");
   //   console.log(data);
   // };
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const user = Object.fromEntries(formData.entries());
+
+    const { data, error } = await signIn.email({
+      email: user.email,
+      password: user.password,
+    });
+
+    console.log(data);
+
+    if (data) {
+      toast.success("Sign In successfully");
+      redirect("/");
+    }
+    if (error) {
+      toast.error(error.message);
+    }
+  };
+
   return (
     <div className="min-h-[80vh] flex flex-col bg-slate-50">
       <div className="flex items-center justify-center p-4">
@@ -71,7 +96,7 @@ export default function Login() {
               </div>
             </div>
 
-            <form className="space-y-6">
+            <form className="space-y-6" onSubmit={onSubmit}>
               <div className="space-y-2">
                 <label
                   htmlFor="email"
