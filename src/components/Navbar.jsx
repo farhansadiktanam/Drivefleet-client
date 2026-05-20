@@ -8,21 +8,19 @@ const Navbar = () => {
   const { data: session } = authClient.useSession();
   const user = session?.user;
 
-  console.log(session, "NAVBAR");
-
   const handleSignOut = async () => {
     await authClient.signOut();
   };
 
   return (
-    <nav className="flex justify-between p-4 shadow-lg">
+    <nav className="flex justify-between items-center p-4 shadow-lg">
       <h2 className="font-bold text-xl">
         Drive
         <span className="text-xl font-black tracking-tighter text-orange-500">
           Fleet
         </span>
       </h2>
-      <ul className="flex gap-3 ">
+      <ul className="flex gap-3 font-semibold">
         <li>
           <Link href={"/"}>Home</Link>
         </li>
@@ -37,10 +35,12 @@ const Navbar = () => {
         </li>
       </ul>
 
-      <ul className="flex gap-3 items-center ">
-        <li>
-          <Link href={"/profile"}>Profile</Link>
-        </li>
+      <ul className="flex gap-3 items-center font-semibold">
+        {user && (
+          <li>
+            <Link href={"/profile"}>Profile</Link>
+          </li>
+        )}
         {user ? (
           <>
             {" "}
@@ -61,15 +61,17 @@ const Navbar = () => {
             </li>{" "}
           </>
         )}
-        <li>
-          <Button
-            variant="danger"
-            className={"rounded-sm"}
-            onClick={handleSignOut}
-          >
-            Logout
-          </Button>
-        </li>
+        {user && (
+          <li>
+            <Button
+              variant="danger"
+              className={"rounded-sm"}
+              onClick={handleSignOut}
+            >
+              Logout
+            </Button>
+          </li>
+        )}
       </ul>
     </nav>
   );

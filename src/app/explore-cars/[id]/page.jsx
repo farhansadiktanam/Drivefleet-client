@@ -1,3 +1,4 @@
+import BookingCar from "@/components/BookingCar";
 import { DeleteCar } from "@/components/DeleteCar";
 import { EditCar } from "@/components/EditCar";
 import { Button } from "@heroui/react";
@@ -15,10 +16,9 @@ const fetchSingleCar = async (id) => {
 const CarsDetailsPage = async ({ params }) => {
   const { id } = await params;
   const car = await fetchSingleCar(id);
-  // console.log(car);
 
   return (
-    <div>
+    <div className="shadow-lg">
       <Button variant="tertiary" className={"w-30  mt-4"}>
         <Link
           href={"/explore-cars"}
@@ -30,6 +30,10 @@ const CarsDetailsPage = async ({ params }) => {
 
       <div className="flex justify-center my-5 gap-5">
         <div className="glass-hover rounded-2xl overflow-hidden  w-full max-w-sm ">
+          <div className=" my-2 flex justify-between">
+            <EditCar car={car} />
+            <DeleteCar car={car} />
+          </div>
           <div className="relative h-48">
             <Image
               src={car.imageUrl}
@@ -83,17 +87,7 @@ const CarsDetailsPage = async ({ params }) => {
                 </span>
                 <span className="text-slate-500 text-sm">/day</span>
               </div>
-              <Link
-                href={`/explore-cars/${car._id}`}
-                className="flex items-center gap-1.5 text-sm font-semibold bg-orange-500/10 hover:bg-orange-500 text-orange-400 hover:text-white px-4 py-2 rounded-full transition-all group"
-              >
-                View Details{" "}
-                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
-              </Link>
-            </div>
-            <div className=" my-6 flex justify-between">
-              <EditCar car={car} />
-              <DeleteCar car={car} />
+              <BookingCar car={car} />
             </div>
           </div>
         </div>

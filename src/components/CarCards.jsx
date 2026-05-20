@@ -57,7 +57,7 @@ export default function CarCard({ car }) {
             href={`/explore-cars/${car._id}`}
             className="flex items-center gap-1.5 text-sm font-semibold bg-orange-500/10 hover:bg-orange-500 text-orange-400 hover:text-white px-4 py-2 rounded-full transition-all group"
           >
-            View Details{" "}
+            Book Now{" "}
             <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
           </Link>
         </div>
