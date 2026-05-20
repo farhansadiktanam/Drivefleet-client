@@ -2,6 +2,7 @@
 import { authClient } from "@/lib/auth-client";
 import { Avatar, Button } from "@heroui/react";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import React from "react";
 
 const Navbar = () => {
@@ -10,6 +11,7 @@ const Navbar = () => {
 
   const handleSignOut = async () => {
     await authClient.signOut();
+    redirect("/");
   };
 
   return (

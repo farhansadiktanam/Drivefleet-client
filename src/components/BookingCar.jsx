@@ -24,11 +24,16 @@ const BookingCar = ({ car }) => {
       pickupLocation,
       bookingDate: new Date(bookingDate),
     };
+
+    const { data: tokenData } = await authClient.token();
+    console.log(tokenData, "FROM BOOKING PAGE");
+
     try {
       const res = await fetch("http://localhost:5000/my-bookings", {
         method: "POST",
         headers: {
           "Content-type": "application/json",
+          authorization: `Bearer ${tokenData?.token}`,
         },
         body: JSON.stringify(bookingData),
       });

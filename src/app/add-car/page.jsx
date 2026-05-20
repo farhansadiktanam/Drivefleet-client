@@ -1,4 +1,5 @@
 "use client";
+import { authClient } from "@/lib/auth-client";
 import {
   Button,
   FieldError,
@@ -16,12 +17,15 @@ const AddDestinations = () => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const car = Object.fromEntries(formData.entries());
-    console.log(car);
+
+    const { data: tokenData } = await authClient.token();
+    console.log(tokenData, "FROM ADD CAR PAGE");
 
     const res = await fetch("http://localhost:5000/cars", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        authorization: `Bearer ${tokenData?.token}`,
       },
       body: JSON.stringify(car),
     });

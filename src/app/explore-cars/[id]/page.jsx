@@ -1,14 +1,23 @@
 import BookingCar from "@/components/BookingCar";
 import { DeleteCar } from "@/components/DeleteCar";
 import { EditCar } from "@/components/EditCar";
+import { auth } from "@/lib/auth";
 import { Button } from "@heroui/react";
 import { ArrowBigLeft, ArrowRight, MapPin, Star, Users } from "lucide-react";
+import { headers } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
 const fetchSingleCar = async (id) => {
-  const res = await fetch(`http://localhost:5000/cars/${id}`);
+  const { token } = await auth.api.getToken({
+    headers: await headers(),
+  });
+  const res = await fetch(`http://localhost:5000/cars/${id}`, {
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  });
   const data = await res.json();
   return data || {};
 };

@@ -11,7 +11,15 @@ const MyBookingPage = async () => {
   const user = session?.user;
   console.log(user.id);
 
-  const res = await fetch(`http://localhost:5000/my-bookings/${user?.id}`);
+  const { token } = await auth.api.getToken({
+    headers: await headers(),
+  });
+
+  const res = await fetch(`http://localhost:5000/my-bookings/${user?.id}`, {
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  });
   const bookings = await res.json();
   console.log(bookings);
 
