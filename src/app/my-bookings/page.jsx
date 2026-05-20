@@ -38,7 +38,7 @@ const MyBookingPage = async () => {
             {/* Content */}
             <div className="p-4 flex flex-col gap-3">
               <div>
-                <h3 className="font-bold text-lg leading-tight">
+                <h3 className="font-bold text-lg leading-tight text-orange-500">
                   {booking.carName}
                 </h3>
               </div>
@@ -71,7 +71,7 @@ const MyBookingPage = async () => {
               <div className="flex items-center justify-between pt-2 border-t border-default-100">
                 <div>
                   <p className="text-xs text-default-400">Total Price</p>
-                  <p className="text-primary font-bold text-lg">
+                  <p className="text-primary font-bold text-lg text-orange-500">
                     ${booking.dailyRentPrice}
                   </p>
                 </div>
