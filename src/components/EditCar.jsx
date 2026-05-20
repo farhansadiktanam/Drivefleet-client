@@ -11,9 +11,11 @@ import {
   ListBox,
 } from "@heroui/react";
 import { Edit } from "lucide-react";
+import { useRef } from "react";
 
 export function EditCar({ car }) {
   const {
+    _id,
     carName,
     dailyRentPrice,
     carType,
@@ -21,20 +23,32 @@ export function EditCar({ car }) {
     pickupLocation,
     imageUrl,
   } = car;
-  console.log(
-    carName,
-    dailyRentPrice,
-    carType,
-    seatCapacity,
-    pickupLocation,
-    imageUrl,
-  );
+
+  const closeRef = useRef(null);
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const car = Object.fromEntries(formData.entries());
+    console.log(car);
+
+    const res = await fetch(`http://localhost:5000/cars/${_id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(car),
+    });
+    const data = await res.json();
+    console.log(data);
+  };
 
   return (
     <Modal>
       <Button
         variant="tertiary"
-        className=" w-30  font-semibold bg-orange-500/80 hover:bg-orange-500 text-white hover:text-white px-2 py-1 rounded-full transition-all group"
+        className="w-30 font-semibold bg-orange-500/80 hover:bg-orange-500
+          text-white px-2 py-1 rounded-full transition-all"
       >
         <Edit /> Edit
       </Button>
@@ -43,29 +57,31 @@ export function EditCar({ car }) {
           <Modal.Dialog className="sm:max-w-md">
             <Modal.CloseTrigger />
             <Modal.Header>
-              <Modal.Icon className="bg-accent-soft text-accent-soft-foreground"></Modal.Icon>
               <Modal.Heading>Edit Car</Modal.Heading>
             </Modal.Header>
             <Modal.Body className="p-6">
               <Surface variant="default">
-                <form className="flex flex-col gap-4">
+                {/* ✅ Modal.Footer is now INSIDE the form */}
+                <form className="flex flex-col gap-4" onSubmit={onSubmit}>
                   <TextField
                     className="w-full"
-                    name="name"
+                    name="carName"
                     type="text"
                     defaultValue={carName}
+                    aria-label="Car Name"
                   >
                     <Label>Car Name</Label>
-                    <Input placeholder="Enter your name" />
+                    <Input placeholder="Enter car name" />
                   </TextField>
+
                   <TextField className="w-full">
                     <Label>Car Type</Label>
                     <Select
                       name="carType"
-                      defaultValue={carType}
                       isRequired
                       className="w-full"
                       placeholder="Select category"
+                      aria-label="Car Type"
                     >
                       <Select.Trigger className="rounded-2xl">
                         <Select.Value />
@@ -73,31 +89,31 @@ export function EditCar({ car }) {
                       </Select.Trigger>
                       <Select.Popover>
                         <ListBox>
-                          <ListBox.Item id="suv" textValue="Beach">
+                          <ListBox.Item id="SUV">
                             SUV
                             <ListBox.ItemIndicator />
                           </ListBox.Item>
-                          <ListBox.Item id="luxury" textValue="Mountain">
+                          <ListBox.Item id="Luxury">
                             Luxury
                             <ListBox.ItemIndicator />
                           </ListBox.Item>
-                          <ListBox.Item id="hatchback" textValue="City">
+                          <ListBox.Item id="Hatchback">
                             Hatchback
                             <ListBox.ItemIndicator />
                           </ListBox.Item>
-                          <ListBox.Item id="sedan" textValue="Adventure">
+                          <ListBox.Item id="Sedan">
                             Sedan
                             <ListBox.ItemIndicator />
                           </ListBox.Item>
-                          <ListBox.Item id="luxurySUV" textValue="Cultural">
+                          <ListBox.Item id="Luxury SUV">
                             Luxury SUV
                             <ListBox.ItemIndicator />
                           </ListBox.Item>
-                          <ListBox.Item id="pickupTruck" textValue="Luxury">
+                          <ListBox.Item id="Pickup Truck">
                             Pickup Truck
                             <ListBox.ItemIndicator />
                           </ListBox.Item>
-                          <ListBox.Item id="minivan" textValue="Luxury">
+                          <ListBox.Item id="Minivan">
                             Minivan
                             <ListBox.ItemIndicator />
                           </ListBox.Item>
@@ -105,52 +121,68 @@ export function EditCar({ car }) {
                       </Select.Popover>
                     </Select>
                   </TextField>
+
                   <TextField
                     className="w-full"
                     name="imageUrl"
                     type="url"
                     defaultValue={imageUrl}
+                    aria-label="Image URL"
                   >
-                    <Label>Image Url</Label>
-                    <Input placeholder="Enter image Url" />
+                    <Label>Image URL</Label>
+                    <Input placeholder="Enter image URL" />
                   </TextField>
+
                   <TextField
                     className="w-full"
                     name="seatCapacity"
                     type="number"
                     defaultValue={seatCapacity}
+                    aria-label="Seat Capacity"
                   >
                     <Label>Seat Capacity</Label>
                     <Input placeholder="Choose seat capacity" />
                   </TextField>
+
                   <TextField
                     className="w-full"
                     name="pickupLocation"
                     defaultValue={pickupLocation}
+                    aria-label="Pickup Location"
                   >
                     <Label>Pickup Location</Label>
-                    <Input
-                      placeholder="Enter your Pickup Location"
-                      defaultValue={pickupLocation}
-                    />
+                    <Input placeholder="Enter pickup location" />
                   </TextField>
+
                   <TextField
                     className="w-full"
                     name="dailyRentPrice"
                     defaultValue={dailyRentPrice}
+                    aria-label="Daily Rent Price"
                   >
                     <Label>Daily Rent Price</Label>
                     <Input placeholder="Price" />
                   </TextField>
-                  <TextField className="w-full" name="description">
-                    <Label>description</Label>
+
+                  <TextField
+                    className="w-full"
+                    name="description"
+                    aria-label="Description"
+                  >
+                    <Label>Description</Label>
                     <Input placeholder="Description" />
                   </TextField>
+
+                  {/* ✅ Footer inside form, Cancel uses slot="close", Save is type="submit" */}
                   <Modal.Footer>
-                    <Button slot="close" variant="secondary">
+                    <Button slot="close" variant="secondary" type="button">
                       Cancel
                     </Button>
-                    <Button slot="close">Save</Button>
+                    <Button type="submit" slot="close">
+                      {" "}
+                      {/* ✅ no slot="close" */}
+                      Save
+                    </Button>
                   </Modal.Footer>
                 </form>
               </Surface>

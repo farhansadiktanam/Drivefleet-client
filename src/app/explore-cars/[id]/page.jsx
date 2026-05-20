@@ -1,14 +1,7 @@
+import { DeleteCar } from "@/components/DeleteCar";
 import { EditCar } from "@/components/EditCar";
 import { Button } from "@heroui/react";
-import {
-  ArrowBigLeft,
-  ArrowRight,
-  Delete,
-  Edit,
-  MapPin,
-  Star,
-  Users,
-} from "lucide-react";
+import { ArrowBigLeft, ArrowRight, MapPin, Star, Users } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -22,7 +15,7 @@ const fetchSingleCar = async (id) => {
 const CarsDetailsPage = async ({ params }) => {
   const { id } = await params;
   const car = await fetchSingleCar(id);
-  console.log(car);
+  // console.log(car);
 
   return (
     <div>
@@ -98,11 +91,9 @@ const CarsDetailsPage = async ({ params }) => {
                 <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
               </Link>
             </div>
-            <div className=" my-3 flex justify-between">
-              <EditCar car={car} key={car._id} />
-              <Button variant="danger" className=" w-30">
-                <Delete /> Delete
-              </Button>
+            <div className=" my-6 flex justify-between">
+              <EditCar car={car} />
+              <DeleteCar car={car} />
             </div>
           </div>
         </div>

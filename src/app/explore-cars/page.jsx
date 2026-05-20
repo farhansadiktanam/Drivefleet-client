@@ -4,7 +4,6 @@ import React from "react";
 
 const ExploreCarsPage = async () => {
   const cars = await fetchCars();
-  console.log(cars);
 
   return (
     <div className="px-4 my-6">

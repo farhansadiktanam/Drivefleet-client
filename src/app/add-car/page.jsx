@@ -15,19 +15,16 @@ const AddDestinations = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    const destinations = Object.fromEntries(formData.entries());
-    console.log(destinations);
+    const car = Object.fromEntries(formData.entries());
+    console.log(car);
 
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_SERVER_URL}/destinations`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(destinations),
+    const res = await fetch("http://localhost:5000/cars", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
       },
-    );
+      body: JSON.stringify(car),
+    });
     const data = await res.json();
 
     console.log(data);
@@ -40,7 +37,6 @@ const AddDestinations = () => {
       <Card>
         <form className="p-10 space-y-8 w-3xl shadow-2xl" onSubmit={onSubmit}>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Destination Name */}
             <div className="md:col-span-2">
               <TextField name="carName" isRequired>
                 <Label>Car Name</Label>
@@ -69,31 +65,31 @@ const AddDestinations = () => {
                 </Select.Trigger>
                 <Select.Popover>
                   <ListBox>
-                    <ListBox.Item id="suv" textValue="Beach">
+                    <ListBox.Item id="suv">
                       SUV
                       <ListBox.ItemIndicator />
                     </ListBox.Item>
-                    <ListBox.Item id="luxury" textValue="Mountain">
+                    <ListBox.Item id="luxury">
                       Luxury
                       <ListBox.ItemIndicator />
                     </ListBox.Item>
-                    <ListBox.Item id="hatchback" textValue="City">
+                    <ListBox.Item id="hatchback">
                       Hatchback
                       <ListBox.ItemIndicator />
                     </ListBox.Item>
-                    <ListBox.Item id="sedan" textValue="Adventure">
+                    <ListBox.Item id="sedan">
                       Sedan
                       <ListBox.ItemIndicator />
                     </ListBox.Item>
-                    <ListBox.Item id="luxurySUV" textValue="Cultural">
+                    <ListBox.Item id="luxurySUV">
                       Luxury SUV
                       <ListBox.ItemIndicator />
                     </ListBox.Item>
-                    <ListBox.Item id="pickupTruck" textValue="Luxury">
+                    <ListBox.Item id="pickupTruck">
                       Pickup Truck
                       <ListBox.ItemIndicator />
                     </ListBox.Item>
-                    <ListBox.Item id="minivan" textValue="Luxury">
+                    <ListBox.Item id="minivan">
                       Minivan
                       <ListBox.ItemIndicator />
                     </ListBox.Item>
@@ -102,23 +98,20 @@ const AddDestinations = () => {
               </Select>
             </div>
 
-            {/* Price */}
             <TextField name="dailyRentPrice" type="number" isRequired>
               <Label>Daily Rent Price</Label>
               <Input type="number" placeholder="1299" className="rounded-2xl" />
               <FieldError />
             </TextField>
 
-            {/* Departure Date */}
             <div className="md:col-span-2">
               <TextField name="departureDate" type="date" isRequired>
-                <Label>Departure Date</Label>
+                <Label>Booking Date</Label>
                 <Input type="date" className="rounded-2xl" />
                 <FieldError />
               </TextField>
             </div>
 
-            {/* Image URL - Removed preview */}
             <div className="md:col-span-2">
               <TextField name="imageUrl" isRequired>
                 <Label>Image URL</Label>
@@ -131,7 +124,6 @@ const AddDestinations = () => {
               </TextField>
             </div>
 
-            {/* Description */}
             <div className="md:col-span-2">
               <TextField name="description" isRequired>
                 <Label>Description</Label>
