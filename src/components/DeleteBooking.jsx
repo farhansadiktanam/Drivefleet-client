@@ -1,5 +1,6 @@
 "use client";
 
+import { authClient } from "@/lib/auth-client";
 import { AlertDialog, Button } from "@heroui/react";
 import { Delete } from "lucide-react";
 import { redirect } from "next/navigation";
@@ -8,12 +9,18 @@ export function DeleteBooking({ booking }) {
   const { _id, carName } = booking;
 
   const handleDelete = async (id) => {
-    const res = await fetch(`http://localhost:5000/my-bookings/${_id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
+    const { data: tokenData } = await authClient.token();
+
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/my-bookings/${_id}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${tokenData?.token}`,
+        },
       },
-    });
+    );
     const data = await res.json();
     console.log(data);
     redirect("/explore-cars");

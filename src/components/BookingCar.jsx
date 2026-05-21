@@ -26,17 +26,19 @@ const BookingCar = ({ car }) => {
     };
 
     const { data: tokenData } = await authClient.token();
-    console.log(tokenData, "FROM BOOKING PAGE");
 
     try {
-      const res = await fetch("http://localhost:5000/my-bookings", {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
-          authorization: `Bearer ${tokenData?.token}`,
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/my-bookings`,
+        {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json",
+            authorization: `Bearer ${tokenData?.token}`,
+          },
+          body: JSON.stringify(bookingData),
         },
-        body: JSON.stringify(bookingData),
-      });
+      );
       const data = await res.json();
       toast.success("Booking successfull");
     } catch (error) {

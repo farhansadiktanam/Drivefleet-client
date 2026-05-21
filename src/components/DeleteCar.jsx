@@ -8,10 +8,13 @@ export function DeleteCar({ car }) {
   const { _id, carName } = car;
 
   const handleDelete = async () => {
-    const res = await fetch(`http://localhost:5000/cars/${_id}`, {
-      method: "DELETE",
-      headers: { "Content-Type": "application/json" },
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/cars/${_id}`,
+      {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+      },
+    );
     const data = await res.json();
     console.log(data);
     redirect("/explore-cars");

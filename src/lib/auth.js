@@ -7,6 +7,7 @@ const client = new MongoClient(process.env.MONGODB_URI);
 const db = client.db("drivefleet");
 
 export const auth = betterAuth({
+  trustedOrigins: ["https://drivefleet-client-snowy.vercel.app"],
   emailAndPassword: {
     enabled: true,
   },

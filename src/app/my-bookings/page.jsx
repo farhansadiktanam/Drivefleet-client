@@ -9,19 +9,20 @@ const MyBookingPage = async () => {
     headers: await headers(),
   });
   const user = session?.user;
-  console.log(user.id);
 
   const { token } = await auth.api.getToken({
     headers: await headers(),
   });
 
-  const res = await fetch(`http://localhost:5000/my-bookings/${user?.id}`, {
-    headers: {
-      authorization: `Bearer ${token}`,
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/my-bookings/${user?.id}`,
+    {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
     },
-  });
+  );
   const bookings = await res.json();
-  console.log(bookings);
 
   return (
     <div className="max-w-5xl mx-auto px-4 my-8">
@@ -37,6 +38,7 @@ const MyBookingPage = async () => {
             <div className="relative w-full h-48">
               <Image
                 src={booking.imageUrl}
+                sizes="lg"
                 alt={booking.carName}
                 fill
                 className="object-cover"

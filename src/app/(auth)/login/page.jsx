@@ -41,8 +41,6 @@ export default function Login() {
       password: user.password,
     });
 
-    console.log(data);
-
     if (data) {
       toast.success("Sign In successfully");
       redirect("/");

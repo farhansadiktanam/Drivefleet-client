@@ -9,26 +9,6 @@ import toast from "react-hot-toast";
 import { redirect } from "next/navigation";
 
 export default function Register() {
-  // const router = useRouter();
-  // const handleRegister = async (e) => {
-  //   e.preventDefault();
-  //   const formData = new FormData(e.currentTarget);
-  //   const registerData = Object.fromEntries(formData.entries());
-
-  //   const { data, error } = await authClient.signUp.email({
-  //     ...registerData,
-  //   });
-
-  //   if (error) {
-  //     console.log(error.message);
-  //     toast.error("Registration failed");
-  //     return;
-  //   }
-  //   router.push("/");
-
-  //   console.log(data);
-  // };
-
   const onSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
