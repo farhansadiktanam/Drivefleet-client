@@ -8,7 +8,7 @@ import { authClient } from "@/lib/auth-client";
 export default function ProfilePage() {
   const { data: session } = authClient.useSession();
   const user = session?.user;
-  console.log(session);
+  // console.log(session);
 
   const handleSignOut = async () => {
     await authClient.signOut();

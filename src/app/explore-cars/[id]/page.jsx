@@ -17,6 +17,7 @@ const fetchSingleCar = async (id) => {
     headers: {
       authorization: `Bearer ${token}`,
     },
+    cache: "no-store",
   });
   const data = await res.json();
   return data || {};

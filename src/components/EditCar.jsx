@@ -11,7 +11,9 @@ import {
   ListBox,
 } from "@heroui/react";
 import { Edit } from "lucide-react";
+// import { redirect } from "next/navigation";
 import { useRef } from "react";
+import { useRouter } from "next/navigation";
 
 export function EditCar({ car }) {
   const {
@@ -25,7 +27,7 @@ export function EditCar({ car }) {
   } = car;
 
   const closeRef = useRef(null);
-
+  const router = useRouter();
   const onSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -40,10 +42,13 @@ export function EditCar({ car }) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(car),
+        cache: "no-store",
       },
     );
     const data = await res.json();
     console.log(data);
+    closeRef.current?.click();
+    router.refresh();
   };
 
   return (
@@ -84,6 +89,7 @@ export function EditCar({ car }) {
                       isRequired
                       className="w-full"
                       placeholder="Select category"
+                      defaultValue={carType}
                       aria-label="Car Type"
                     >
                       <Select.Trigger className="rounded-2xl">
@@ -176,14 +182,11 @@ export function EditCar({ car }) {
                     <Input placeholder="Description" />
                   </TextField>
 
-                  {/* ✅ Footer inside form, Cancel uses slot="close", Save is type="submit" */}
                   <Modal.Footer>
                     <Button slot="close" variant="secondary" type="button">
                       Cancel
                     </Button>
                     <Button type="submit" slot="close">
-                      {" "}
-                      {/* ✅ no slot="close" */}
                       Save
                     </Button>
                   </Modal.Footer>

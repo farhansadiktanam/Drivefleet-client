@@ -11,6 +11,7 @@ import {
   Select,
   Card,
 } from "@heroui/react";
+import { redirect } from "next/navigation";
 
 const AddDestinations = () => {
   const onSubmit = async (e) => {
@@ -28,10 +29,11 @@ const AddDestinations = () => {
         authorization: `Bearer ${tokenData?.token}`,
       },
       body: JSON.stringify(car),
+      cache: "no-store",
     });
     const data = await res.json();
-
     console.log(data);
+    redirect("/explore-cars");
   };
   return (
     <div className="max-w-7xl mx-auto">
